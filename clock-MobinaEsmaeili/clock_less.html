@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <link rel="stylesheet" href="lessmefortamrin.css">
+    <title>Document</title>
+
+</head>
+<body>
+
+
+    <div class="clock-container">  
+            <div class="box">
+             <div class="ci"></div>
+            </div>
+            <div class="box"> <div class="ci"></div></div>
+            <div class="box"><div class="ci"></div></div>
+            <div class="box"><div class="ci"></div></div>
+            <div class="box"><div class="ci"></div></div>
+            <div class="box"><div class="ci"></div></div>
+            <div class="box"><div class="ci"></div></div>
+            <div class="box"><div class="ci"></div></div>
+            <div class="box"><div class="ci"></div></div>
+            <div class="box"><div class="ci"></div></div>
+            <div class="box"><div class="ci"></div></div>
+            <div class="box"><div class="ci"></div></div>
+                   
+            <div class="clock-hand" id="sec">  
+                <div class="hand-second"></div>  
+               </div>  
+              <div class="clock-hand" id="min">  
+               <div class="hand-minute"></div>  
+               </div>  
+             <div class="clock-hand" id="hr">  
+               <div class="hand-hour"></div>  
+              </div>  
+          </div>  
+            <script>  
+
+                let secondHand=document.querySelector("#sec");  
+            let minHand=document.querySelector("#min")  
+            let hourHand=document.querySelector("#hr")  
+    
+    
+            setInterval(clockRotating,1000)  
+    
+            function clockRotating(){  
+                var date=new Date();  
+                var getSeconds=date.getSeconds()/60;  
+                var getMinutes=date.getMinutes()/60;  
+                var getHours=date.getHours()/12  
+    
+                secondHand.style.transform="rotate("+getSeconds*360 + "deg)"  
+                minHand.style.transform="rotate("+getMinutes*360 + "deg)"  
+                hourHand.style.transform="rotate("+getHours*360 + "deg)"  
+              
+               
+                  if(getSeconds==0){
+                   
+                      $("body").css("backgroundColor","silver")
+                  }
+                  else{
+                    $("body").css("backgroundColor","#091921dc")
+                  }
+                }
+             
+                 
+                </script>  
+</body>
+</html>

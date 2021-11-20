@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="common/w3.css">
+    <title>Game_Mobina</title>
+
+    <style>
+        html {
+            font-family: sans-serif;
+        }
+
+        body {
+            width: 50%;
+            max-width: 800px;
+            min-width: 480px;
+            margin: 0 auto;
+        }
+
+        p:nth-of-type(1) {
+            color: purple;
+            font-family: sans-serif;
+            font-size: 20px;
+        }
+
+        .result2 {
+            color: white;
+            padding: 3px 6px;
+        }
+
+        input[type] {
+            transition: 300ms
+        }
+
+        input[type]:focus {
+
+            outline: none;
+            border-bottom: 1px solid rgb(199, 13, 152);
+            transition: 400ms;
+        }
+
+        .w3-green,
+        .w3-hover-green:hover {
+            background-color: #984caf !important;
+        }
+
+        input[type=button] {
+            background-color: #984caf;
+            color: white;
+            border: 2px solid #c372dc;
+        }
+
+        .box1 {
+            color: purple;
+            margin-left: 5px;
+            text-align: center;
+
+        }
+
+        .result2 {
+            text-align: center;
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+
+<div class="w3-card-4">
+    <div class="w3-container w3-green">
+        <h1>Guessing Game</h1>
+    </div>
+    <form class="w3-container">
+
+        <p>
+            <label for="guessField">Number Gusser: </label>
+        </p>
+        <p>
+            <input type="text" id="guessField" class="guessField w3-input" placeholder="enter your number">
+        </p>
+        <p>
+            <input type="button" value="Submit guess" class="guessSubmit ">
+        </p>
+    </form>
+
+    <div class="result1">
+        <p class="guesse"></p>
+        <p class="result2"></p>
+        <p class="box1"></p>
+    </div>
+
+    <script>
+       let randomNumber= Math.floor(Math.random() * 5) + 1;
+        // let randomNumber = 9;
+        const guesses = document.querySelector('.guesses');
+        const lastResult = document.querySelector('.result2');
+        const low_high = document.querySelector('.box1');
+        const guessSubmit = document.querySelector('.guessSubmit');
+        const guessField = document.querySelector('.guessField');
+        let guessCount = 1;
+        let resetButton;
+        var c = 0;
+
+        function checkGuess() {
+            let userGuess = Number(guessField.value);
+
+            console.log(userGuess);
+            c++;
+            if (userGuess === randomNumber) {
+                lastResult.textContent = 'your answer is correct !';
+                lastResult.style.backgroundColor = 'green';
+                low_high.textContent = '';
+                setGameOver();
+            } else if (userGuess == "") {
+                lastResult.textContent = '!This field is empty!';
+                lastResult.style.backgroundColor = 'purple';
+                low_high.textContent = '';
+
+            } else if (guessCount === 3) {
+                lastResult.textContent = '!GAME OVER!';
+                low_high.textContent = '';
+                lastResult.style.backgroundColor = 'crimson'
+                setGameOver();
+            } else {
+                lastResult.textContent = 'Wrong!';
+                lastResult.style.backgroundColor = 'red';
+                low_high.textContent = "The remaining steps are equal to : " + (3 - c);
+
+            }
+
+            guessCount++;
+            guessField.value = '';
+            guessField.focus();
+        }
+
+        guessSubmit.addEventListener('click', checkGuess);
+
+        /////////////////////////
+        function setGameOver() {
+            guessField.disabled = true;
+            guessSubmit.disabled = true;
+            resetButton = document.createElement('button');
+            resetButton.textContent = 'Start new game';
+            resetButton.style.backgroundColor = 'crimson';
+            document.body.appendChild(resetButton);
+            resetButton.addEventListener('click', resetGame);
+        }
+
+        function resetGame() {
+            guessCount = 1;
+            const resetParas = document.querySelectorAll('.resultParas p');
+            for (let i = 0; i < resetParas.length; i++) {
+                resetParas[i].textContent = '';
+            }
+
+            resetButton.parentNode.removeChild(resetButton);
+            guessField.disabled = false;
+            guessSubmit.disabled = false;
+            guessField.value = '';
+            guessField.focus();
+            lastResult.style.backgroundColor = 'white';
+            randomNumber = Math.floor(Math.random() * 100) + 1;
+        }
+    </script>
+</body>
+</html>
